@@ -7,15 +7,21 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AutocompleteTypes, Color, ComponentProps, ComponentRef, OverlayEventDetail, TextFieldTypes } from "./interfaces";
 import { CheckboxChangeEventDetail } from "./components/my-checkbox/my-checkbox";
+import { Baz, Foo, Grault, Quux, Waldo } from "./components/my-complex-props/my-complex-props";
+import { Baz as Baz1, Foo as Foo1, Grault as Grault1, Quux as Quux1, Waldo as Waldo1 } from "./components/my-complex-props-scoped/my-complex-props-scoped";
 import { IMyComponent } from "./components/helpers";
 import { InputChangeEventDetail } from "./components/my-input/my-input";
+import { InputChangeEventDetail as InputChangeEventDetail1 } from "./components/my-input-scoped/my-input-scoped";
 import { RadioGroupChangeEventDetail } from "./components/my-radio-group/my-radio-group";
 import { Color as Color1, StyleEventDetail } from "./components/element-interface";
 import { RangeChangeEventDetail, RangeValue } from "./components/my-range/my-range";
 export { AutocompleteTypes, Color, ComponentProps, ComponentRef, OverlayEventDetail, TextFieldTypes } from "./interfaces";
 export { CheckboxChangeEventDetail } from "./components/my-checkbox/my-checkbox";
+export { Baz, Foo, Grault, Quux, Waldo } from "./components/my-complex-props/my-complex-props";
+export { Baz as Baz1, Foo as Foo1, Grault as Grault1, Quux as Quux1, Waldo as Waldo1 } from "./components/my-complex-props-scoped/my-complex-props-scoped";
 export { IMyComponent } from "./components/helpers";
 export { InputChangeEventDetail } from "./components/my-input/my-input";
+export { InputChangeEventDetail as InputChangeEventDetail1 } from "./components/my-input-scoped/my-input-scoped";
 export { RadioGroupChangeEventDetail } from "./components/my-radio-group/my-radio-group";
 export { Color as Color1, StyleEventDetail } from "./components/element-interface";
 export { RangeChangeEventDetail, RangeValue } from "./components/my-range/my-range";
@@ -23,6 +29,7 @@ export namespace Components {
     interface MyButton {
         /**
           * The type of button.
+          * @default 'button'
          */
         "buttonType": string;
         /**
@@ -31,6 +38,7 @@ export namespace Components {
         "color"?: Color;
         /**
           * If `true`, the user cannot interact with the button.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -67,6 +75,7 @@ export namespace Components {
         "size"?: 'small' | 'default' | 'large';
         /**
           * If `true`, activates a button with a heavier font weight.
+          * @default false
          */
         "strong": boolean;
         /**
@@ -75,6 +84,69 @@ export namespace Components {
         "target": string | undefined;
         /**
           * The type of the button.
+          * @default 'button'
+         */
+        "type": 'submit' | 'reset' | 'button';
+    }
+    interface MyButtonScoped {
+        /**
+          * The type of button.
+          * @default 'button'
+         */
+        "buttonType": string;
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the button.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * This attribute instructs browsers to download a URL instead of navigating to it, so the user will be prompted to save it as a local file. If the attribute has a value, it is used as the pre-filled file name in the Save prompt (the user can still change the file name if they want).
+         */
+        "download": string | undefined;
+        /**
+          * Set to `"block"` for a full-width button or to `"full"` for a full-width button without left and right borders.
+         */
+        "expand"?: 'full' | 'block';
+        /**
+          * Set to `"clear"` for a transparent button, to `"outline"` for a transparent button with a border, or to `"solid"`. The default style is `"solid"` except inside of a toolbar, where the default is `"clear"`.
+         */
+        "fill"?: 'clear' | 'outline' | 'solid' | 'default';
+        /**
+          * Contains a URL or a URL fragment that the hyperlink points to. If this property is set, an anchor tag will be rendered.
+         */
+        "href": string | undefined;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * Specifies the relationship of the target object to the link object. The value is a space-separated list of [link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types).
+         */
+        "rel": string | undefined;
+        /**
+          * The button shape.
+         */
+        "shape"?: 'round';
+        /**
+          * The button size.
+         */
+        "size"?: 'small' | 'default' | 'large';
+        /**
+          * If `true`, activates a button with a heavier font weight.
+          * @default false
+         */
+        "strong": boolean;
+        /**
+          * Specifies where to display the linked URL. Only applies when an `href` is provided. Special keywords: `"_blank"`, `"_self"`, `"_parent"`, `"_top"`.
+         */
+        "target": string | undefined;
+        /**
+          * The type of the button.
+          * @default 'button'
          */
         "type": 'submit' | 'reset' | 'button';
     }
@@ -85,6 +157,7 @@ export namespace Components {
         "alignment"?: 'start' | 'center';
         /**
           * If `true`, the checkbox is selected.
+          * @default false
          */
         "checked": boolean;
         /**
@@ -93,10 +166,12 @@ export namespace Components {
         "color"?: string;
         /**
           * If `true`, the user cannot interact with the checkbox.
+          * @default false
          */
         "disabled": boolean;
         /**
           * If `true`, the checkbox will visually appear as indeterminate.
+          * @default false
          */
         "indeterminate": boolean;
         /**
@@ -105,6 +180,7 @@ export namespace Components {
         "justify"?: 'start' | 'end' | 'space-between';
         /**
           * Where to place the label relative to the checkbox. `"start"`: The label will appear to the left of the checkbox in LTR and to the right in RTL. `"end"`: The label will appear to the right of the checkbox in LTR and to the left in RTL. `"fixed"`: The label has the same behavior as `"start"` except it also has a fixed width. Long text will be truncated with ellipses ("..."). `"stacked"`: The label will appear above the checkbox regardless of the direction. The alignment of the label can be controlled with the `alignment` property.
+          * @default 'start'
          */
         "labelPlacement": 'start' | 'end' | 'fixed' | 'stacked';
         /**
@@ -113,39 +189,93 @@ export namespace Components {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name": string;
         "setFocus": () => Promise<void>;
         /**
           * The value of the checkbox does not mean if it's checked or not, use the `checked` property for that.  The value of a checkbox is analogous to the value of an `<input type="checkbox">`, it's only used when the checkbox participates in a native `<form>`.
+          * @default 'on'
          */
         "value": any | null;
     }
+    interface MyComplexProps {
+        /**
+          * map objects
+         */
+        "baz": Baz;
+        /**
+          * basic object
+         */
+        "foo": Foo;
+        /**
+          * infinity
+         */
+        "grault": Grault;
+        /**
+          * set objects
+         */
+        "quux": Quux;
+        /**
+          * null
+         */
+        "waldo": Waldo;
+    }
+    interface MyComplexPropsScoped {
+        /**
+          * map objects
+         */
+        "baz": Baz1;
+        /**
+          * basic object
+         */
+        "foo": Foo1;
+        /**
+          * infinity
+         */
+        "grault": Grault1;
+        /**
+          * set objects
+         */
+        "quux": Quux1;
+        /**
+          * null
+         */
+        "waldo": Waldo1;
+    }
     interface MyComponent {
-        /**
-          * The age
-         */
-        "age": number;
-        /**
-          * The favorite kid
-         */
-        "favoriteKidName": string;
         /**
           * The first name
          */
         "first": string;
         /**
-          * The array of child names
+          * The last name
          */
-        "kidsNames": string[];
+        "last": string;
+        /**
+          * The middle name (using kebab case name)
+         */
+        "middleName": string;
+    }
+    interface MyComponentScoped {
+        /**
+          * The first name
+         */
+        "first": string;
         /**
           * The last name
          */
         "last": string;
         /**
-          * The middle name
+          * The middle name (using kebab case name)
          */
-        "middle": string;
+        "middleName": string;
+    }
+    interface MyCounter {
+        /**
+          * The start value
+         */
+        "startValue": number;
     }
     interface MyInput {
         /**
@@ -154,22 +284,27 @@ export namespace Components {
         "accept"?: string;
         /**
           * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+          * @default 'off'
          */
         "autocapitalize": string;
         /**
           * Indicates whether the value of the control can be automatically completed by the browser.
+          * @default 'off'
          */
         "autocomplete": AutocompleteTypes;
         /**
           * Whether auto correction should be enabled when the user is entering/editing the text value.
+          * @default 'off'
          */
         "autocorrect": 'on' | 'off';
         /**
           * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+          * @default false
          */
         "autofocus": boolean;
         /**
           * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * @default false
          */
         "clearInput": boolean;
         /**
@@ -182,6 +317,7 @@ export namespace Components {
         "color"?: Color;
         /**
           * If `true`, the user cannot interact with the input.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -222,6 +358,7 @@ export namespace Components {
         "multiple"?: boolean;
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name": string;
         /**
@@ -234,10 +371,12 @@ export namespace Components {
         "placeholder"?: string | null;
         /**
           * If `true`, the user cannot modify the value.
+          * @default false
          */
         "readonly": boolean;
         /**
           * If `true`, the user must fill in a value before submitting a form.
+          * @default false
          */
         "required": boolean;
         /**
@@ -250,6 +389,7 @@ export namespace Components {
         "size"?: number;
         /**
           * If `true`, the element will have its spelling and grammar checked.
+          * @default false
          */
         "spellcheck": boolean;
         /**
@@ -258,10 +398,142 @@ export namespace Components {
         "step"?: string;
         /**
           * The type of control to display. The default type is text.
+          * @default 'text'
          */
         "type": TextFieldTypes;
         /**
           * The value of the input.
+          * @default ''
+         */
+        "value"?: string | number | null;
+    }
+    interface MyInputScoped {
+        /**
+          * If the value of the type attribute is `"file"`, then this attribute will indicate the types of files that the server accepts, otherwise it will be ignored. The value must be a comma-separated list of unique content type specifiers.
+         */
+        "accept"?: string;
+        /**
+          * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+          * @default 'off'
+         */
+        "autocapitalize": string;
+        /**
+          * Indicates whether the value of the control can be automatically completed by the browser.
+          * @default 'off'
+         */
+        "autocomplete": AutocompleteTypes;
+        /**
+          * Whether auto correction should be enabled when the user is entering/editing the text value.
+          * @default 'off'
+         */
+        "autocorrect": 'on' | 'off';
+        /**
+          * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+          * @default false
+         */
+        "autofocus": boolean;
+        /**
+          * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * @default false
+         */
+        "clearInput": boolean;
+        /**
+          * If `true`, the value will be cleared after focus upon edit. Defaults to `true` when `type` is `"password"`, `false` for all other types.
+         */
+        "clearOnEdit"?: boolean;
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the input.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * A hint to the browser for which enter key to display. Possible values: `"enter"`, `"done"`, `"go"`, `"next"`, `"previous"`, `"search"`, and `"send"`.
+         */
+        "enterkeyhint"?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
+        /**
+          * Returns the native `<input>` element used under the hood.
+         */
+        "getInputElement": () => Promise<HTMLInputElement>;
+        /**
+          * A hint to the browser for which keyboard to display. Possible values: `"none"`, `"text"`, `"tel"`, `"url"`, `"email"`, `"numeric"`, `"decimal"`, and `"search"`.
+         */
+        "inputmode"?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+          * The maximum value, which must not be less than its minimum (min attribute) value.
+         */
+        "max"?: string;
+        /**
+          * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+         */
+        "maxlength"?: number;
+        /**
+          * The minimum value, which must not be greater than its maximum (max attribute) value.
+         */
+        "min"?: string;
+        /**
+          * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+         */
+        "minlength"?: number;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * If `true`, the user can enter more than one value. This attribute applies when the type attribute is set to `"email"` or `"file"`, otherwise it is ignored.
+         */
+        "multiple"?: boolean;
+        /**
+          * The name of the control, which is submitted with the form data.
+          * @default this.inputId
+         */
+        "name": string;
+        /**
+          * A regular expression that the value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is `"text"`, `"search"`, `"tel"`, `"url"`, `"email"`, `"date"`, or `"password"`, otherwise it is ignored. When the type attribute is `"date"`, `pattern` will only be used in browsers that do not support the `"date"` input type natively. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date for more information.
+         */
+        "pattern"?: string;
+        /**
+          * Instructional text that shows before the input has a value.
+         */
+        "placeholder"?: string | null;
+        /**
+          * If `true`, the user cannot modify the value.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * If `true`, the user must fill in a value before submitting a form.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Sets focus on the specified `my-input`. Use this method instead of the global `input.focus()`.
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * The initial size of the control. This value is in pixels unless the value of the type attribute is `"text"` or `"password"`, in which case it is an integer number of characters. This attribute applies only when the `type` attribute is set to `"text"`, `"search"`, `"tel"`, `"url"`, `"email"`, or `"password"`, otherwise it is ignored.
+         */
+        "size"?: number;
+        /**
+          * If `true`, the element will have its spelling and grammar checked.
+          * @default false
+         */
+        "spellcheck": boolean;
+        /**
+          * Works with the min and max attributes to limit the increments at which a value can be set. Possible values are: `"any"` or a positive floating point number.
+         */
+        "step"?: string;
+        /**
+          * The type of control to display. The default type is text.
+          * @default 'text'
+         */
+        "type": TextFieldTypes;
+        /**
+          * The value of the input.
+          * @default ''
          */
         "value"?: string | number | null;
     }
@@ -269,13 +541,19 @@ export namespace Components {
     }
     interface MyListItem {
     }
+    interface MyListItemScoped {
+    }
+    interface MyListScoped {
+    }
     interface MyPopover {
         /**
           * If `true`, the popover will animate.
+          * @default true
          */
         "animated": boolean;
         /**
           * If `true`, the popover will be dismissed when the backdrop is clicked.
+          * @default true
          */
         "backdropDismiss": boolean;
         /**
@@ -302,6 +580,7 @@ export namespace Components {
         "event": any;
         /**
           * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+          * @default true
          */
         "keyboardClose": boolean;
         /**
@@ -322,10 +601,12 @@ export namespace Components {
         "present": () => Promise<void>;
         /**
           * If `true`, a backdrop will be displayed behind the popover.
+          * @default true
          */
         "showBackdrop": boolean;
         /**
           * If `true`, the popover will be translucent. Only applies when the mode is `"ios"` and the device supports [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
+          * @default false
          */
         "translucent": boolean;
     }
@@ -340,6 +621,7 @@ export namespace Components {
         "color"?: string;
         /**
           * If `true`, the user cannot interact with the radio.
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -348,6 +630,7 @@ export namespace Components {
         "justify"?: 'start' | 'end' | 'space-between';
         /**
           * Where to place the label relative to the radio. `"start"`: The label will appear to the left of the radio in LTR and to the right in RTL. `"end"`: The label will appear to the right of the radio in LTR and to the left in RTL. `"fixed"`: The label has the same behavior as `"start"` except it also has a fixed width. Long text will be truncated with ellipses ("..."). `"stacked"`: The label will appear above the radio regardless of the direction. The alignment of the label can be controlled with the `alignment` property.
+          * @default 'start'
          */
         "labelPlacement": 'start' | 'end' | 'fixed' | 'stacked';
         /**
@@ -356,6 +639,7 @@ export namespace Components {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name": string;
         "setButtonTabindex": (value: number) => Promise<void>;
@@ -368,6 +652,7 @@ export namespace Components {
     interface MyRadioGroup {
         /**
           * If `true`, the radios can be deselected.
+          * @default false
          */
         "allowEmptySelection": boolean;
         /**
@@ -376,6 +661,7 @@ export namespace Components {
         "compareWith"?: string | Function | null;
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name": string;
         "setFocus": () => Promise<void>;
@@ -391,22 +677,27 @@ export namespace Components {
         "color"?: Color1;
         /**
           * How long, in milliseconds, to wait to trigger the `myChange` event after each change in the range value.
+          * @default 0
          */
         "debounce": number;
         /**
           * If `true`, the user cannot interact with the range.
+          * @default false
          */
         "disabled": boolean;
         /**
           * Show two knobs.
+          * @default false
          */
         "dualKnobs": boolean;
         /**
           * Maximum integer value of the range.
+          * @default 100
          */
         "max": number;
         /**
           * Minimum integer value of the range.
+          * @default 0
          */
         "min": number;
         /**
@@ -415,26 +706,32 @@ export namespace Components {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default ''
          */
         "name": string;
         /**
           * If `true`, a pin with integer value is shown when the knob is pressed.
+          * @default false
          */
         "pin": boolean;
         /**
           * If `true`, the knob snaps to tick marks evenly spaced based on the step property value.
+          * @default false
          */
         "snaps": boolean;
         /**
           * Specifies the value granularity.
+          * @default 1
          */
         "step": number;
         /**
           * If `true`, tick marks are displayed based on the step value. Only applies when `snaps` is `true`.
+          * @default true
          */
         "ticks": boolean;
         /**
           * the value of the range.
+          * @default 0
          */
         "value": RangeValue;
     }
@@ -448,17 +745,29 @@ export interface MyButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyButtonElement;
 }
+export interface MyButtonScopedCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyButtonScopedElement;
+}
 export interface MyCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyCheckboxElement;
 }
-export interface MyComponentCustomEvent<T> extends CustomEvent<T> {
+export interface MyComponentScopedCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLMyComponentElement;
+    target: HTMLMyComponentScopedElement;
+}
+export interface MyCounterCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyCounterElement;
 }
 export interface MyInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyInputElement;
+}
+export interface MyInputScopedCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyInputScopedElement;
 }
 export interface MyPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -495,6 +804,24 @@ declare global {
         prototype: HTMLMyButtonElement;
         new (): HTMLMyButtonElement;
     };
+    interface HTMLMyButtonScopedElementEventMap {
+        "myFocus": void;
+        "myBlur": void;
+    }
+    interface HTMLMyButtonScopedElement extends Components.MyButtonScoped, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyButtonScopedElementEventMap>(type: K, listener: (this: HTMLMyButtonScopedElement, ev: MyButtonScopedCustomEvent<HTMLMyButtonScopedElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyButtonScopedElementEventMap>(type: K, listener: (this: HTMLMyButtonScopedElement, ev: MyButtonScopedCustomEvent<HTMLMyButtonScopedElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyButtonScopedElement: {
+        prototype: HTMLMyButtonScopedElement;
+        new (): HTMLMyButtonScopedElement;
+    };
     interface HTMLMyCheckboxElementEventMap {
         "ionChange": CheckboxChangeEventDetail;
         "ionFocus": void;
@@ -514,23 +841,57 @@ declare global {
         prototype: HTMLMyCheckboxElement;
         new (): HTMLMyCheckboxElement;
     };
-    interface HTMLMyComponentElementEventMap {
-        "myCustomEvent": IMyComponent.someVar;
-        "myCustomNestedEvent": IMyComponent.SomeMoreComplexType.SubType;
+    interface HTMLMyComplexPropsElement extends Components.MyComplexProps, HTMLStencilElement {
     }
+    var HTMLMyComplexPropsElement: {
+        prototype: HTMLMyComplexPropsElement;
+        new (): HTMLMyComplexPropsElement;
+    };
+    interface HTMLMyComplexPropsScopedElement extends Components.MyComplexPropsScoped, HTMLStencilElement {
+    }
+    var HTMLMyComplexPropsScopedElement: {
+        prototype: HTMLMyComplexPropsScopedElement;
+        new (): HTMLMyComplexPropsScopedElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLMyComponentElementEventMap>(type: K, listener: (this: HTMLMyComponentElement, ev: MyComponentCustomEvent<HTMLMyComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLMyComponentElementEventMap>(type: K, listener: (this: HTMLMyComponentElement, ev: MyComponentCustomEvent<HTMLMyComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
+    };
+    interface HTMLMyComponentScopedElementEventMap {
+        "myCustomEvent": IMyComponent.someVar;
+    }
+    interface HTMLMyComponentScopedElement extends Components.MyComponentScoped, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyComponentScopedElementEventMap>(type: K, listener: (this: HTMLMyComponentScopedElement, ev: MyComponentScopedCustomEvent<HTMLMyComponentScopedElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyComponentScopedElementEventMap>(type: K, listener: (this: HTMLMyComponentScopedElement, ev: MyComponentScopedCustomEvent<HTMLMyComponentScopedElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyComponentScopedElement: {
+        prototype: HTMLMyComponentScopedElement;
+        new (): HTMLMyComponentScopedElement;
+    };
+    interface HTMLMyCounterElementEventMap {
+        "count": number;
+    }
+    interface HTMLMyCounterElement extends Components.MyCounter, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyCounterElementEventMap>(type: K, listener: (this: HTMLMyCounterElement, ev: MyCounterCustomEvent<HTMLMyCounterElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyCounterElementEventMap>(type: K, listener: (this: HTMLMyCounterElement, ev: MyCounterCustomEvent<HTMLMyCounterElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyCounterElement: {
+        prototype: HTMLMyCounterElement;
+        new (): HTMLMyCounterElement;
     };
     interface HTMLMyInputElementEventMap {
         "myInput": KeyboardEvent;
@@ -552,6 +913,26 @@ declare global {
         prototype: HTMLMyInputElement;
         new (): HTMLMyInputElement;
     };
+    interface HTMLMyInputScopedElementEventMap {
+        "myInput": KeyboardEvent;
+        "myChange": InputChangeEventDetail1;
+        "myBlur": void;
+        "myFocus": void;
+    }
+    interface HTMLMyInputScopedElement extends Components.MyInputScoped, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyInputScopedElementEventMap>(type: K, listener: (this: HTMLMyInputScopedElement, ev: MyInputScopedCustomEvent<HTMLMyInputScopedElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyInputScopedElementEventMap>(type: K, listener: (this: HTMLMyInputScopedElement, ev: MyInputScopedCustomEvent<HTMLMyInputScopedElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyInputScopedElement: {
+        prototype: HTMLMyInputScopedElement;
+        new (): HTMLMyInputScopedElement;
+    };
     interface HTMLMyListElement extends Components.MyList, HTMLStencilElement {
     }
     var HTMLMyListElement: {
@@ -563,6 +944,18 @@ declare global {
     var HTMLMyListItemElement: {
         prototype: HTMLMyListItemElement;
         new (): HTMLMyListItemElement;
+    };
+    interface HTMLMyListItemScopedElement extends Components.MyListItemScoped, HTMLStencilElement {
+    }
+    var HTMLMyListItemScopedElement: {
+        prototype: HTMLMyListItemScopedElement;
+        new (): HTMLMyListItemScopedElement;
+    };
+    interface HTMLMyListScopedElement extends Components.MyListScoped, HTMLStencilElement {
+    }
+    var HTMLMyListScopedElement: {
+        prototype: HTMLMyListScopedElement;
+        new (): HTMLMyListScopedElement;
     };
     interface HTMLMyPopoverElementEventMap {
         "myPopoverDidPresent": void;
@@ -654,11 +1047,19 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "my-button": HTMLMyButtonElement;
+        "my-button-scoped": HTMLMyButtonScopedElement;
         "my-checkbox": HTMLMyCheckboxElement;
+        "my-complex-props": HTMLMyComplexPropsElement;
+        "my-complex-props-scoped": HTMLMyComplexPropsScopedElement;
         "my-component": HTMLMyComponentElement;
+        "my-component-scoped": HTMLMyComponentScopedElement;
+        "my-counter": HTMLMyCounterElement;
         "my-input": HTMLMyInputElement;
+        "my-input-scoped": HTMLMyInputScopedElement;
         "my-list": HTMLMyListElement;
         "my-list-item": HTMLMyListItemElement;
+        "my-list-item-scoped": HTMLMyListItemScopedElement;
+        "my-list-scoped": HTMLMyListScopedElement;
         "my-popover": HTMLMyPopoverElement;
         "my-radio": HTMLMyRadioElement;
         "my-radio-group": HTMLMyRadioGroupElement;
@@ -671,6 +1072,7 @@ declare namespace LocalJSX {
     interface MyButton {
         /**
           * The type of button.
+          * @default 'button'
          */
         "buttonType"?: string;
         /**
@@ -679,6 +1081,7 @@ declare namespace LocalJSX {
         "color"?: Color;
         /**
           * If `true`, the user cannot interact with the button.
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -723,6 +1126,7 @@ declare namespace LocalJSX {
         "size"?: 'small' | 'default' | 'large';
         /**
           * If `true`, activates a button with a heavier font weight.
+          * @default false
          */
         "strong"?: boolean;
         /**
@@ -731,6 +1135,77 @@ declare namespace LocalJSX {
         "target"?: string | undefined;
         /**
           * The type of the button.
+          * @default 'button'
+         */
+        "type"?: 'submit' | 'reset' | 'button';
+    }
+    interface MyButtonScoped {
+        /**
+          * The type of button.
+          * @default 'button'
+         */
+        "buttonType"?: string;
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the button.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * This attribute instructs browsers to download a URL instead of navigating to it, so the user will be prompted to save it as a local file. If the attribute has a value, it is used as the pre-filled file name in the Save prompt (the user can still change the file name if they want).
+         */
+        "download"?: string | undefined;
+        /**
+          * Set to `"block"` for a full-width button or to `"full"` for a full-width button without left and right borders.
+         */
+        "expand"?: 'full' | 'block';
+        /**
+          * Set to `"clear"` for a transparent button, to `"outline"` for a transparent button with a border, or to `"solid"`. The default style is `"solid"` except inside of a toolbar, where the default is `"clear"`.
+         */
+        "fill"?: 'clear' | 'outline' | 'solid' | 'default';
+        /**
+          * Contains a URL or a URL fragment that the hyperlink points to. If this property is set, an anchor tag will be rendered.
+         */
+        "href"?: string | undefined;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * Emitted when the button loses focus.
+         */
+        "onMyBlur"?: (event: MyButtonScopedCustomEvent<void>) => void;
+        /**
+          * Emitted when the button has focus.
+         */
+        "onMyFocus"?: (event: MyButtonScopedCustomEvent<void>) => void;
+        /**
+          * Specifies the relationship of the target object to the link object. The value is a space-separated list of [link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types).
+         */
+        "rel"?: string | undefined;
+        /**
+          * The button shape.
+         */
+        "shape"?: 'round';
+        /**
+          * The button size.
+         */
+        "size"?: 'small' | 'default' | 'large';
+        /**
+          * If `true`, activates a button with a heavier font weight.
+          * @default false
+         */
+        "strong"?: boolean;
+        /**
+          * Specifies where to display the linked URL. Only applies when an `href` is provided. Special keywords: `"_blank"`, `"_self"`, `"_parent"`, `"_top"`.
+         */
+        "target"?: string | undefined;
+        /**
+          * The type of the button.
+          * @default 'button'
          */
         "type"?: 'submit' | 'reset' | 'button';
     }
@@ -741,6 +1216,7 @@ declare namespace LocalJSX {
         "alignment"?: 'start' | 'center';
         /**
           * If `true`, the checkbox is selected.
+          * @default false
          */
         "checked"?: boolean;
         /**
@@ -749,10 +1225,12 @@ declare namespace LocalJSX {
         "color"?: string;
         /**
           * If `true`, the user cannot interact with the checkbox.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * If `true`, the checkbox will visually appear as indeterminate.
+          * @default false
          */
         "indeterminate"?: boolean;
         /**
@@ -761,6 +1239,7 @@ declare namespace LocalJSX {
         "justify"?: 'start' | 'end' | 'space-between';
         /**
           * Where to place the label relative to the checkbox. `"start"`: The label will appear to the left of the checkbox in LTR and to the right in RTL. `"end"`: The label will appear to the right of the checkbox in LTR and to the left in RTL. `"fixed"`: The label has the same behavior as `"start"` except it also has a fixed width. Long text will be truncated with ellipses ("..."). `"stacked"`: The label will appear above the checkbox regardless of the direction. The alignment of the label can be controlled with the `alignment` property.
+          * @default 'start'
          */
         "labelPlacement"?: 'start' | 'end' | 'fixed' | 'stacked';
         /**
@@ -769,6 +1248,7 @@ declare namespace LocalJSX {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name"?: string;
         /**
@@ -785,42 +1265,95 @@ declare namespace LocalJSX {
         "onIonFocus"?: (event: MyCheckboxCustomEvent<void>) => void;
         /**
           * The value of the checkbox does not mean if it's checked or not, use the `checked` property for that.  The value of a checkbox is analogous to the value of an `<input type="checkbox">`, it's only used when the checkbox participates in a native `<form>`.
+          * @default 'on'
          */
         "value"?: any | null;
     }
+    interface MyComplexProps {
+        /**
+          * map objects
+         */
+        "baz"?: Baz;
+        /**
+          * basic object
+         */
+        "foo"?: Foo;
+        /**
+          * infinity
+         */
+        "grault"?: Grault;
+        /**
+          * set objects
+         */
+        "quux"?: Quux;
+        /**
+          * null
+         */
+        "waldo"?: Waldo;
+    }
+    interface MyComplexPropsScoped {
+        /**
+          * map objects
+         */
+        "baz"?: Baz1;
+        /**
+          * basic object
+         */
+        "foo"?: Foo1;
+        /**
+          * infinity
+         */
+        "grault"?: Grault1;
+        /**
+          * set objects
+         */
+        "quux"?: Quux1;
+        /**
+          * null
+         */
+        "waldo"?: Waldo1;
+    }
     interface MyComponent {
-        /**
-          * The age
-         */
-        "age"?: number;
-        /**
-          * The favorite kid
-         */
-        "favoriteKidName"?: string;
         /**
           * The first name
          */
         "first"?: string;
         /**
-          * The array of child names
+          * The last name
          */
-        "kidsNames"?: string[];
+        "last"?: string;
+        /**
+          * The middle name (using kebab case name)
+         */
+        "middleName"?: string;
+    }
+    interface MyComponentScoped {
+        /**
+          * The first name
+         */
+        "first"?: string;
         /**
           * The last name
          */
         "last"?: string;
         /**
-          * The middle name
+          * The middle name (using kebab case name)
          */
-        "middle"?: string;
+        "middleName"?: string;
         /**
           * Testing an event without value
          */
-        "onMyCustomEvent"?: (event: MyComponentCustomEvent<IMyComponent.someVar>) => void;
+        "onMyCustomEvent"?: (event: MyComponentScopedCustomEvent<IMyComponent.someVar>) => void;
+    }
+    interface MyCounter {
         /**
-          * Testing with nested namespaces
+          * Emitted when the count changes
          */
-        "onMyCustomNestedEvent"?: (event: MyComponentCustomEvent<IMyComponent.SomeMoreComplexType.SubType>) => void;
+        "onCount"?: (event: MyCounterCustomEvent<number>) => void;
+        /**
+          * The start value
+         */
+        "startValue"?: number;
     }
     interface MyInput {
         /**
@@ -829,22 +1362,27 @@ declare namespace LocalJSX {
         "accept"?: string;
         /**
           * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+          * @default 'off'
          */
         "autocapitalize"?: string;
         /**
           * Indicates whether the value of the control can be automatically completed by the browser.
+          * @default 'off'
          */
         "autocomplete"?: AutocompleteTypes;
         /**
           * Whether auto correction should be enabled when the user is entering/editing the text value.
+          * @default 'off'
          */
         "autocorrect"?: 'on' | 'off';
         /**
           * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+          * @default false
          */
         "autofocus"?: boolean;
         /**
           * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * @default false
          */
         "clearInput"?: boolean;
         /**
@@ -857,6 +1395,7 @@ declare namespace LocalJSX {
         "color"?: Color;
         /**
           * If `true`, the user cannot interact with the input.
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -893,6 +1432,7 @@ declare namespace LocalJSX {
         "multiple"?: boolean;
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name"?: string;
         /**
@@ -921,10 +1461,12 @@ declare namespace LocalJSX {
         "placeholder"?: string | null;
         /**
           * If `true`, the user cannot modify the value.
+          * @default false
          */
         "readonly"?: boolean;
         /**
           * If `true`, the user must fill in a value before submitting a form.
+          * @default false
          */
         "required"?: boolean;
         /**
@@ -933,6 +1475,7 @@ declare namespace LocalJSX {
         "size"?: number;
         /**
           * If `true`, the element will have its spelling and grammar checked.
+          * @default false
          */
         "spellcheck"?: boolean;
         /**
@@ -941,10 +1484,150 @@ declare namespace LocalJSX {
         "step"?: string;
         /**
           * The type of control to display. The default type is text.
+          * @default 'text'
          */
         "type"?: TextFieldTypes;
         /**
           * The value of the input.
+          * @default ''
+         */
+        "value"?: string | number | null;
+    }
+    interface MyInputScoped {
+        /**
+          * If the value of the type attribute is `"file"`, then this attribute will indicate the types of files that the server accepts, otherwise it will be ignored. The value must be a comma-separated list of unique content type specifiers.
+         */
+        "accept"?: string;
+        /**
+          * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+          * @default 'off'
+         */
+        "autocapitalize"?: string;
+        /**
+          * Indicates whether the value of the control can be automatically completed by the browser.
+          * @default 'off'
+         */
+        "autocomplete"?: AutocompleteTypes;
+        /**
+          * Whether auto correction should be enabled when the user is entering/editing the text value.
+          * @default 'off'
+         */
+        "autocorrect"?: 'on' | 'off';
+        /**
+          * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+          * @default false
+         */
+        "autofocus"?: boolean;
+        /**
+          * If `true`, a clear icon will appear in the input when there is a value. Clicking it clears the input.
+          * @default false
+         */
+        "clearInput"?: boolean;
+        /**
+          * If `true`, the value will be cleared after focus upon edit. Defaults to `true` when `type` is `"password"`, `false` for all other types.
+         */
+        "clearOnEdit"?: boolean;
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the input.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * A hint to the browser for which enter key to display. Possible values: `"enter"`, `"done"`, `"go"`, `"next"`, `"previous"`, `"search"`, and `"send"`.
+         */
+        "enterkeyhint"?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
+        /**
+          * A hint to the browser for which keyboard to display. Possible values: `"none"`, `"text"`, `"tel"`, `"url"`, `"email"`, `"numeric"`, `"decimal"`, and `"search"`.
+         */
+        "inputmode"?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+          * The maximum value, which must not be less than its minimum (min attribute) value.
+         */
+        "max"?: string;
+        /**
+          * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the maximum number of characters that the user can enter.
+         */
+        "maxlength"?: number;
+        /**
+          * The minimum value, which must not be greater than its maximum (max attribute) value.
+         */
+        "min"?: string;
+        /**
+          * If the value of the type attribute is `text`, `email`, `search`, `password`, `tel`, or `url`, this attribute specifies the minimum number of characters that the user can enter.
+         */
+        "minlength"?: number;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * If `true`, the user can enter more than one value. This attribute applies when the type attribute is set to `"email"` or `"file"`, otherwise it is ignored.
+         */
+        "multiple"?: boolean;
+        /**
+          * The name of the control, which is submitted with the form data.
+          * @default this.inputId
+         */
+        "name"?: string;
+        /**
+          * Emitted when the input loses focus.
+         */
+        "onMyBlur"?: (event: MyInputScopedCustomEvent<void>) => void;
+        /**
+          * Emitted when the value has changed.
+         */
+        "onMyChange"?: (event: MyInputScopedCustomEvent<InputChangeEventDetail1>) => void;
+        /**
+          * Emitted when the input has focus.
+         */
+        "onMyFocus"?: (event: MyInputScopedCustomEvent<void>) => void;
+        /**
+          * Emitted when a keyboard input occurred.
+         */
+        "onMyInput"?: (event: MyInputScopedCustomEvent<KeyboardEvent>) => void;
+        /**
+          * A regular expression that the value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is `"text"`, `"search"`, `"tel"`, `"url"`, `"email"`, `"date"`, or `"password"`, otherwise it is ignored. When the type attribute is `"date"`, `pattern` will only be used in browsers that do not support the `"date"` input type natively. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date for more information.
+         */
+        "pattern"?: string;
+        /**
+          * Instructional text that shows before the input has a value.
+         */
+        "placeholder"?: string | null;
+        /**
+          * If `true`, the user cannot modify the value.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * If `true`, the user must fill in a value before submitting a form.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * The initial size of the control. This value is in pixels unless the value of the type attribute is `"text"` or `"password"`, in which case it is an integer number of characters. This attribute applies only when the `type` attribute is set to `"text"`, `"search"`, `"tel"`, `"url"`, `"email"`, or `"password"`, otherwise it is ignored.
+         */
+        "size"?: number;
+        /**
+          * If `true`, the element will have its spelling and grammar checked.
+          * @default false
+         */
+        "spellcheck"?: boolean;
+        /**
+          * Works with the min and max attributes to limit the increments at which a value can be set. Possible values are: `"any"` or a positive floating point number.
+         */
+        "step"?: string;
+        /**
+          * The type of control to display. The default type is text.
+          * @default 'text'
+         */
+        "type"?: TextFieldTypes;
+        /**
+          * The value of the input.
+          * @default ''
          */
         "value"?: string | number | null;
     }
@@ -952,13 +1635,19 @@ declare namespace LocalJSX {
     }
     interface MyListItem {
     }
+    interface MyListItemScoped {
+    }
+    interface MyListScoped {
+    }
     interface MyPopover {
         /**
           * If `true`, the popover will animate.
+          * @default true
          */
         "animated"?: boolean;
         /**
           * If `true`, the popover will be dismissed when the backdrop is clicked.
+          * @default true
          */
         "backdropDismiss"?: boolean;
         /**
@@ -979,6 +1668,7 @@ declare namespace LocalJSX {
         "event"?: any;
         /**
           * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+          * @default true
          */
         "keyboardClose"?: boolean;
         /**
@@ -1003,10 +1693,12 @@ declare namespace LocalJSX {
         "onMyPopoverWillPresent"?: (event: MyPopoverCustomEvent<void>) => void;
         /**
           * If `true`, a backdrop will be displayed behind the popover.
+          * @default true
          */
         "showBackdrop"?: boolean;
         /**
           * If `true`, the popover will be translucent. Only applies when the mode is `"ios"` and the device supports [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
+          * @default false
          */
         "translucent"?: boolean;
     }
@@ -1021,6 +1713,7 @@ declare namespace LocalJSX {
         "color"?: string;
         /**
           * If `true`, the user cannot interact with the radio.
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -1029,6 +1722,7 @@ declare namespace LocalJSX {
         "justify"?: 'start' | 'end' | 'space-between';
         /**
           * Where to place the label relative to the radio. `"start"`: The label will appear to the left of the radio in LTR and to the right in RTL. `"end"`: The label will appear to the right of the radio in LTR and to the left in RTL. `"fixed"`: The label has the same behavior as `"start"` except it also has a fixed width. Long text will be truncated with ellipses ("..."). `"stacked"`: The label will appear above the radio regardless of the direction. The alignment of the label can be controlled with the `alignment` property.
+          * @default 'start'
          */
         "labelPlacement"?: 'start' | 'end' | 'fixed' | 'stacked';
         /**
@@ -1037,6 +1731,7 @@ declare namespace LocalJSX {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name"?: string;
         /**
@@ -1055,6 +1750,7 @@ declare namespace LocalJSX {
     interface MyRadioGroup {
         /**
           * If `true`, the radios can be deselected.
+          * @default false
          */
         "allowEmptySelection"?: boolean;
         /**
@@ -1063,6 +1759,7 @@ declare namespace LocalJSX {
         "compareWith"?: string | Function | null;
         /**
           * The name of the control, which is submitted with the form data.
+          * @default this.inputId
          */
         "name"?: string;
         /**
@@ -1085,22 +1782,27 @@ declare namespace LocalJSX {
         "color"?: Color1;
         /**
           * How long, in milliseconds, to wait to trigger the `myChange` event after each change in the range value.
+          * @default 0
          */
         "debounce"?: number;
         /**
           * If `true`, the user cannot interact with the range.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Show two knobs.
+          * @default false
          */
         "dualKnobs"?: boolean;
         /**
           * Maximum integer value of the range.
+          * @default 100
          */
         "max"?: number;
         /**
           * Minimum integer value of the range.
+          * @default 0
          */
         "min"?: number;
         /**
@@ -1109,6 +1811,7 @@ declare namespace LocalJSX {
         "mode"?: "ios" | "md";
         /**
           * The name of the control, which is submitted with the form data.
+          * @default ''
          */
         "name"?: string;
         /**
@@ -1129,22 +1832,27 @@ declare namespace LocalJSX {
         "onMyStyle"?: (event: MyRangeCustomEvent<StyleEventDetail>) => void;
         /**
           * If `true`, a pin with integer value is shown when the knob is pressed.
+          * @default false
          */
         "pin"?: boolean;
         /**
           * If `true`, the knob snaps to tick marks evenly spaced based on the step property value.
+          * @default false
          */
         "snaps"?: boolean;
         /**
           * Specifies the value granularity.
+          * @default 1
          */
         "step"?: number;
         /**
           * If `true`, tick marks are displayed based on the step value. Only applies when `snaps` is `true`.
+          * @default true
          */
         "ticks"?: boolean;
         /**
           * the value of the range.
+          * @default 0
          */
         "value"?: RangeValue;
     }
@@ -1155,11 +1863,19 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "my-button": MyButton;
+        "my-button-scoped": MyButtonScoped;
         "my-checkbox": MyCheckbox;
+        "my-complex-props": MyComplexProps;
+        "my-complex-props-scoped": MyComplexPropsScoped;
         "my-component": MyComponent;
+        "my-component-scoped": MyComponentScoped;
+        "my-counter": MyCounter;
         "my-input": MyInput;
+        "my-input-scoped": MyInputScoped;
         "my-list": MyList;
         "my-list-item": MyListItem;
+        "my-list-item-scoped": MyListItemScoped;
+        "my-list-scoped": MyListScoped;
         "my-popover": MyPopover;
         "my-radio": MyRadio;
         "my-radio-group": MyRadioGroup;
@@ -1173,11 +1889,19 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-button": LocalJSX.MyButton & JSXBase.HTMLAttributes<HTMLMyButtonElement>;
+            "my-button-scoped": LocalJSX.MyButtonScoped & JSXBase.HTMLAttributes<HTMLMyButtonScopedElement>;
             "my-checkbox": LocalJSX.MyCheckbox & JSXBase.HTMLAttributes<HTMLMyCheckboxElement>;
+            "my-complex-props": LocalJSX.MyComplexProps & JSXBase.HTMLAttributes<HTMLMyComplexPropsElement>;
+            "my-complex-props-scoped": LocalJSX.MyComplexPropsScoped & JSXBase.HTMLAttributes<HTMLMyComplexPropsScopedElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-component-scoped": LocalJSX.MyComponentScoped & JSXBase.HTMLAttributes<HTMLMyComponentScopedElement>;
+            "my-counter": LocalJSX.MyCounter & JSXBase.HTMLAttributes<HTMLMyCounterElement>;
             "my-input": LocalJSX.MyInput & JSXBase.HTMLAttributes<HTMLMyInputElement>;
+            "my-input-scoped": LocalJSX.MyInputScoped & JSXBase.HTMLAttributes<HTMLMyInputScopedElement>;
             "my-list": LocalJSX.MyList & JSXBase.HTMLAttributes<HTMLMyListElement>;
             "my-list-item": LocalJSX.MyListItem & JSXBase.HTMLAttributes<HTMLMyListItemElement>;
+            "my-list-item-scoped": LocalJSX.MyListItemScoped & JSXBase.HTMLAttributes<HTMLMyListItemScopedElement>;
+            "my-list-scoped": LocalJSX.MyListScoped & JSXBase.HTMLAttributes<HTMLMyListScopedElement>;
             "my-popover": LocalJSX.MyPopover & JSXBase.HTMLAttributes<HTMLMyPopoverElement>;
             "my-radio": LocalJSX.MyRadio & JSXBase.HTMLAttributes<HTMLMyRadioElement>;
             "my-radio-group": LocalJSX.MyRadioGroup & JSXBase.HTMLAttributes<HTMLMyRadioGroupElement>;

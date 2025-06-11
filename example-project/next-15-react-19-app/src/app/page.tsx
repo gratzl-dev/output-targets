@@ -1,7 +1,17 @@
-import Button from './Button/Button';
-import { MyComponent, MyRadioGroup, MyRange } from './components';
+import {
+  MyComponent,
+  MyRange,
+  MyCounter,
+  MyRadioGroup,
+  MyRadio,
+} from 'component-library-react';
 import Input from './Input/Input';
+import Button from './Button/Button';
 import { ToggleableContent } from './ToggleableContent/ToggleableContent';
+
+function getStuff() {
+  return 'I am random value!';
+}
 
 export default function Home() {
   return (
@@ -12,13 +22,21 @@ export default function Home() {
       <hr />
       <MyComponent
         first="Stencil"
+        middleName={getStuff()}
         last="'Don't call me a framework' JS"
         className="my-8"
-        favoriteKidName="foobar"
       />
       <hr />
       <MyRange name="myRange">Hello World</MyRange>
       <ToggleableContent />
+      <hr />
+      <MyCounter />
+      <hr />
+      <MyRadioGroup name="myRadio" value="foo">
+        <MyRadio value="foo">Foo</MyRadio>
+        <MyRadio value="bar">Bar</MyRadio>
+        <MyRadio value="baz">Baz</MyRadio>
+      </MyRadioGroup>
     </>
   );
 }
