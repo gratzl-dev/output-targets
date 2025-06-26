@@ -27,7 +27,7 @@ export interface OutputTargetAngular {
    * - `scam` - Generate a Single Component Angular Module for each component.
    * - `standalone` - (default) Generates standalone components.
    */
-  outputType?: OutputType;
+  outputType: OutputType;
   /**
    * Experimental (!)
    * When true, tries to inline the properties of components. This is required to enable Angular Language Service

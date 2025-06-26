@@ -72,7 +72,7 @@ export function generateProxies(
   const { outputType } = outputTarget;
   const componentsTypeFile = relativeImport(outputTarget.directivesProxyFile, dtsFilePath, '.d.ts');
   const includeSingleComponentAngularModules = outputType === OutputTypes.Scam;
-  const isCustomElementsBuild = isOutputTypeCustomElementsBuild(outputType!);
+  const isCustomElementsBuild = isOutputTypeCustomElementsBuild(outputType);
   const isStandaloneBuild = outputType === OutputTypes.Standalone;
   const includeOutputImports = components.some((component) => component.events.some((event) => !event.internal));
 
@@ -196,7 +196,7 @@ ${createImportStatement(componentLibImports, './angular-component-lib/utils')}\n
     );
     const moduleDefinition = generateAngularModuleForComponent(cmpMeta.tagName);
     const componentTypeDefinition = createComponentTypeDefinition(
-      outputType!,
+      outputType,
       tagNameAsPascal,
       cmpMeta.events,
       componentCorePackage,
